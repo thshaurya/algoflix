@@ -5,7 +5,7 @@
       "name": "🍿 Run AlgoFlix (One-Click Launch)",
       "type": "node-terminal",
       "request": "launch",
-      "command": "npm start",
+      "command": "npm.cmd start",
       "cwd": "${workspaceFolder}"
     },
     {
