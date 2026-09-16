@@ -1,0 +1,33 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "🍿 Start AlgoFlix Full-Stack",
+      "type": "shell",
+      "command": "npm start",
+      "problemMatcher": [],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "new",
+        "focus": false
+      },
+      "runOptions": {
+        "runOn": "default"
+      }
+    },
+    {
+      "label": "🌱 Seed MongoDB Database",
+      "type": "shell",
+      "command": "npm run seed",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      }
+    }
+  ]
+}

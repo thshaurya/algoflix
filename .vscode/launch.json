@@ -1,0 +1,34 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "🍿 Run AlgoFlix (One-Click Launch)",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "npm start",
+      "cwd": "${workspaceFolder}"
+    },
+    {
+      "name": "Backend Server (Debug Node.js)",
+      "type": "node",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/server",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev"],
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Frontend Client (Debug Chrome/Edge)",
+      "type": "chrome",
+      "request": "launch",
+      "url": "http://localhost:5173",
+      "webRoot": "${workspaceFolder}/client/src"
+    }
+  ],
+  "compounds": [
+    {
+      "name": "🚀 Launch Full Stack & Browser",
+      "configurations": ["🍿 Run AlgoFlix (One-Click Launch)", "Frontend Client (Debug Chrome/Edge)"]
+    }
+  ]
+}
