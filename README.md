@@ -79,7 +79,6 @@ AlgoFlix/
 │   │   │   ├── AlgorithmDetail.jsx
 │   │   │   ├── Home.jsx
 │   │   │   ├── MyListPage.jsx
-│   │   │   ├── SearchPage.jsx
 │   │   │   └── VisualizerStudio.jsx
 │   │   ├── services/           # Axios API services
 │   │   ├── styles/             # Custom Netflix-themed CSS
@@ -111,7 +110,7 @@ AlgoFlix/
 
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/your-username/algoflix.git
+   git clone https://github.com/thshaurya/algoflix.git
    cd algoflix
    ```
 
@@ -151,7 +150,7 @@ AlgoFlix/
 
 ## 🤝 Contributing
 
-Contributions, issues, and feature requests are welcome! Feel free to check the [issues page](https://github.com/your-username/algoflix/issues).
+Contributions, issues, and feature requests are welcome! Feel free to check the [issues page](https://github.com/thshaurya/algoflix/issues).
 
 ---
 
