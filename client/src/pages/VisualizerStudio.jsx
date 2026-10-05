@@ -74,9 +74,25 @@ export const VisualizerStudio = () => {
               fontSize: '0.95rem',
             }}
           >
-            <option value="bubble-sort">Bubble Sort</option>
-            <option value="quick-sort">Quick Sort</option>
-            <option value="merge-sort">Merge Sort (Simulator)</option>
+            <optgroup label="Sorting Algorithms">
+              <option value="bubble-sort">Bubble Sort</option>
+              <option value="insertion-sort">Insertion Sort</option>
+              <option value="selection-sort">Selection Sort</option>
+              <option value="quick-sort">Quick Sort</option>
+              <option value="merge-sort">Merge Sort</option>
+            </optgroup>
+            <optgroup label="Searching Algorithms">
+              <option value="binary-search">Binary Search</option>
+            </optgroup>
+            <optgroup label="Graph Algorithms">
+              <option value="breadth-first-search">Breadth-First Search (BFS)</option>
+              <option value="depth-first-search">Depth-First Search (DFS)</option>
+              <option value="dijkstras-algorithm">Dijkstra's Algorithm</option>
+            </optgroup>
+            <optgroup label="Dynamic Programming">
+              <option value="kadanes-algorithm">Kadane's Algorithm</option>
+              <option value="fibonacci-dp">Fibonacci DP</option>
+            </optgroup>
           </select>
         </div>
 

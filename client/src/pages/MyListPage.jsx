@@ -27,10 +27,10 @@ export const MyListPage = () => {
             Your list is currently empty.
           </h3>
           <p style={{ marginBottom: '1.5rem' }}>
-            Explore the catalog and click the '+' button on any algorithm card to bookmark it here.
+            Explore algorithms and click the '+' button on any algorithm card to bookmark it here.
           </p>
-          <button className="btn-primary" onClick={() => navigate('/search')} style={{ margin: '0 auto' }}>
-            Explore Catalog
+          <button className="btn-primary" onClick={() => navigate('/')} style={{ margin: '0 auto' }}>
+            Explore Algorithms
           </button>
         </div>
       ) : (
@@ -45,12 +45,10 @@ export const MyListPage = () => {
         </div>
       )}
 
-      {selectedAlgo && (
-        <AlgorithmModal
-          algorithm={selectedAlgo}
-          onClose={() => setSelectedAlgo(null)}
-        />
-      )}
+      <AlgorithmModal
+        algorithm={selectedAlgo}
+        onClose={() => setSelectedAlgo(null)}
+      />
     </div>
   );
 };

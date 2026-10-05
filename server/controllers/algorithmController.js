@@ -7,13 +7,18 @@ const { getDBStatus } = require('../config/db');
 let inMemoryAlgorithms = [...seedAlgorithms];
 
 /**
- * @desc    Get all algorithms (with optional search, category, and difficulty filtering)
+ * @desc    Get all algorithms (with optional search, category, difficulty filtering, and pagination)
  * @route   GET /api/algorithms
  * @access  Public
  */
 const getAlgorithms = async (req, res, next) => {
   try {
-    const { category, difficulty, search, featured } = req.query;
+    const { category, difficulty, search, featured, page = '1', limit = '50' } = req.query;
+
+    // Parse and validate pagination parameters
+    const pageNum = Math.max(1, parseInt(page, 10) || 1);
+    const limitNum = Math.min(100, Math.max(1, parseInt(limit, 10) || 50));
+    const skip = (pageNum - 1) * limitNum;
 
     if (getDBStatus()) {
       const query = {};
@@ -31,15 +36,30 @@ const getAlgorithms = async (req, res, next) => {
       }
 
       if (search) {
+        const sanitizedSearch = search.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
         query.$or = [
-          { title: { $regex: search, $options: 'i' } },
-          { summary: { $regex: search, $options: 'i' } },
-          { tags: { $regex: search, $options: 'i' } },
+          { title: { $regex: sanitizedSearch, $options: 'i' } },
+          { summary: { $regex: sanitizedSearch, $options: 'i' } },
+          { tags: { $regex: sanitizedSearch, $options: 'i' } },
         ];
       }
 
-      const algorithms = await Algorithm.find(query).sort({ rating: -1, createdAt: -1 });
-      return successResponse(res, algorithms, 'Algorithms retrieved successfully');
+      const [algorithms, total] = await Promise.all([
+        Algorithm.find(query).sort({ rating: -1, createdAt: -1 }).skip(skip).limit(limitNum),
+        Algorithm.countDocuments(query),
+      ]);
+
+      return res.status(200).json({
+        success: true,
+        message: 'Algorithms retrieved successfully',
+        data: algorithms,
+        pagination: {
+          page: pageNum,
+          limit: limitNum,
+          total,
+          totalPages: Math.ceil(total / limitNum),
+        },
+      });
     }
 
     // In-memory fallback
@@ -72,7 +92,20 @@ const getAlgorithms = async (req, res, next) => {
       );
     }
 
-    return successResponse(res, results, 'Algorithms retrieved successfully (In-Memory Mode)');
+    const total = results.length;
+    const paginated = results.slice(skip, skip + limitNum);
+
+    return res.status(200).json({
+      success: true,
+      message: 'Algorithms retrieved successfully (In-Memory Mode)',
+      data: paginated,
+      pagination: {
+        page: pageNum,
+        limit: limitNum,
+        total,
+        totalPages: Math.ceil(total / limitNum),
+      },
+    });
   } catch (error) {
     next(error);
   }

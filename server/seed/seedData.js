@@ -611,58 +611,275 @@ public class BFS {
     }
   },
   {
-    title: 'Fibonacci Sequence (Memoization)',
-    slug: 'fibonacci-dp',
-    category: 'Dynamic Programming',
+    title: 'Insertion Sort',
+    slug: 'insertion-sort',
+    category: 'Sorting',
     difficulty: 'Easy',
     featured: false,
-    rating: 4.7,
-    summary: 'A canonical introduction to Dynamic Programming that cuts exponential recursive work down to linear time using memoization.',
-    description: 'The Fibonacci numbers form a sequence where each number is the sum of the two preceding ones. A naive recursive solution recalculates identical subproblems exponentially. By caching subproblem results in a memo table, the runtime transforms from O(2ⁿ) to O(n).',
+    rating: 4.6,
+    summary: 'A simple, intuitive sorting algorithm that builds the final sorted array one item at a time by inserting elements into their correct position.',
+    description: 'Insertion Sort iterates through an array and at each iteration, it removes one element, finds the location it belongs within the sorted list, and inserts it there. It is efficient for small data sets and nearly sorted arrays, and is stable and in-place.',
     timeComplexity: {
       best: 'O(n)',
-      average: 'O(n)',
-      worst: 'O(n)',
+      average: 'O(n²)',
+      worst: 'O(n²)',
     },
-    spaceComplexity: 'O(n)',
-    visualizerType: 'dp',
-    defaultArray: [1, 1, 2, 3, 5, 8, 13, 21, 34, 55],
-    tags: ['Memoization', 'Optimization', 'Subproblems', 'Recursion'],
-    bannerUrl: 'https://images.unsplash.com/photo-1509228468518-180dd4864904?auto=format&fit=crop&w=1600&q=80',
-    thumbnailUrl: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=600&q=80',
+    spaceComplexity: 'O(1)',
+    visualizerType: 'sorting',
+    defaultArray: [38, 27, 43, 3, 9, 82, 10],
+    tags: ['Simple', 'Stable', 'In-Place', 'Adaptive'],
+    bannerUrl: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=1600&q=80',
+    thumbnailUrl: 'https://images.unsplash.com/photo-1515879218367-8466d910aaa4?auto=format&fit=crop&w=600&q=80',
     code: {
-      javascript: `function fib(n, memo = {}) {
-  if (n in memo) return memo[n];
-  if (n <= 1) return n;
-  memo[n] = fib(n - 1, memo) + fib(n - 2, memo);
-  return memo[n];
+      javascript: `function insertionSort(arr) {
+  for (let i = 1; i < arr.length; i++) {
+    const key = arr[i];
+    let j = i - 1;
+    while (j >= 0 && arr[j] > key) {
+      arr[j + 1] = arr[j];
+      j--;
+    }
+    arr[j + 1] = key;
+  }
+  return arr;
 }`,
-      python: `def fib(n, memo={}):
-    if n in memo:
-        return memo[n]
-    if n <= 1:
-        return n
-    memo[n] = fib(n - 1, memo) + fib(n - 2, memo)
-    return memo[n]`,
+      python: `def insertion_sort(arr):
+    for i in range(1, len(arr)):
+        key = arr[i]
+        j = i - 1
+        while j >= 0 and arr[j] > key:
+            arr[j + 1] = arr[j]
+            j -= 1
+        arr[j + 1] = key
+    return arr`,
       cpp: `#include <vector>
 
-int fib(int n, std::vector<int>& memo) {
-    if (memo[n] != -1) return memo[n];
-    if (n <= 1) return n;
-    return memo[n] = fib(n - 1, memo) + fib(n - 2, memo);
+void insertionSort(std::vector<int>& arr) {
+    for (int i = 1; i < arr.size(); i++) {
+        int key = arr[i];
+        int j = i - 1;
+        while (j >= 0 && arr[j] > key) {
+            arr[j + 1] = arr[j];
+            j--;
+        }
+        arr[j + 1] = key;
+    }
 }`,
-      java: `import java.util.HashMap;
-import java.util.Map;
+      java: `public class InsertionSort {
+    public static void insertionSort(int[] arr) {
+        for (int i = 1; i < arr.length; i++) {
+            int key = arr[i];
+            int j = i - 1;
+            while (j >= 0 && arr[j] > key) {
+                arr[j + 1] = arr[j];
+                j--;
+            }
+            arr[j + 1] = key;
+        }
+    }
+}`
+    }
+  },
+  {
+    title: 'Selection Sort',
+    slug: 'selection-sort',
+    category: 'Sorting',
+    difficulty: 'Easy',
+    featured: false,
+    rating: 4.4,
+    summary: 'A comparison-based algorithm that repeatedly selects the minimum element from the unsorted portion and places it at the beginning.',
+    description: 'Selection Sort divides the input list into two parts: a sorted sublist at the front and an unsorted sublist at the back. The algorithm repeatedly selects the smallest (or largest) element from the unsorted sublist, swaps it with the leftmost unsorted element, and moves the sublist boundaries one element to the right.',
+    timeComplexity: {
+      best: 'O(n²)',
+      average: 'O(n²)',
+      worst: 'O(n²)',
+    },
+    spaceComplexity: 'O(1)',
+    visualizerType: 'sorting',
+    defaultArray: [64, 25, 12, 22, 11, 90, 88, 45, 50, 33],
+    tags: ['Simple', 'In-Place', 'Comparison', 'Unstable'],
+    bannerUrl: 'https://images.unsplash.com/photo-1509228468518-180dd4864904?auto=format&fit=crop&w=1600&q=80',
+    thumbnailUrl: 'https://images.unsplash.com/photo-1542831371-29b0f74f9713?auto=format&fit=crop&w=600&q=80',
+    code: {
+      javascript: `function selectionSort(arr) {
+  for (let i = 0; i < arr.length - 1; i++) {
+    let minIdx = i;
+    for (let j = i + 1; j < arr.length; j++) {
+      if (arr[j] < arr[minIdx]) {
+        minIdx = j;
+      }
+    }
+    if (minIdx !== i) {
+      [arr[i], arr[minIdx]] = [arr[minIdx], arr[i]];
+    }
+  }
+  return arr;
+}`,
+      python: `def selection_sort(arr):
+    for i in range(len(arr) - 1):
+        min_idx = i
+        for j in range(i + 1, len(arr)):
+            if arr[j] < arr[min_idx]:
+                min_idx = j
+        if min_idx != i:
+            arr[i], arr[min_idx] = arr[min_idx], arr[i]
+    return arr`,
+      cpp: `#include <vector>
+#include <algorithm>
 
-public class FibonacciDP {
-    private static Map<Integer, Long> memo = new HashMap<>();
+void selectionSort(std::vector<int>& arr) {
+    for (int i = 0; i < arr.size() - 1; i++) {
+        int minIdx = i;
+        for (int j = i + 1; j < arr.size(); j++) {
+            if (arr[j] < arr[minIdx]) {
+                minIdx = j;
+            }
+        }
+        if (minIdx != i) {
+            std::swap(arr[i], arr[minIdx]);
+        }
+    }
+}`,
+      java: `public class SelectionSort {
+    public static void selectionSort(int[] arr) {
+        for (int i = 0; i < arr.length - 1; i++) {
+            int minIdx = i;
+            for (int j = i + 1; j < arr.length; j++) {
+                if (arr[j] < arr[minIdx]) {
+                    minIdx = j;
+                }
+            }
+            if (minIdx != i) {
+                int temp = arr[i];
+                arr[i] = arr[minIdx];
+                arr[minIdx] = temp;
+            }
+        }
+    }
+}`
+    }
+  },
+  {
+    title: 'Depth-First Search (DFS)',
+    slug: 'depth-first-search',
+    category: 'Graph Theory',
+    difficulty: 'Medium',
+    featured: false,
+    rating: 4.7,
+    summary: 'A recursive graph traversal algorithm that explores as far as possible along each branch before backtracking.',
+    description: 'Depth-First Search starts at the root node and explores as far as possible along each branch before backtracking. It can be implemented using a stack (iterative) or recursion (implicit stack). DFS is used for topological sorting, cycle detection, pathfinding in mazes, and solving puzzles.',
+    timeComplexity: {
+      best: 'O(V + E)',
+      average: 'O(V + E)',
+      worst: 'O(V + E)',
+    },
+    spaceComplexity: 'O(V)',
+    visualizerType: 'graph',
+    defaultArray: [1, 2, 3, 4, 5, 6, 7, 8],
+    tags: ['Stack', 'Recursion', 'Backtracking', 'Topological Sort'],
+    bannerUrl: 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1600&q=80',
+    thumbnailUrl: 'https://images.unsplash.com/photo-1515879218367-8466d910aaa4?auto=format&fit=crop&w=600&q=80',
+    code: {
+      javascript: `function dfs(graph, start, visited = new Set()) {
+  visited.add(start);
+  const order = [start];
 
-    public static long fib(int n) {
-        if (memo.containsKey(n)) return memo.get(n);
-        if (n <= 1) return n;
-        long result = fib(n - 1) + fib(n - 2);
-        memo.put(n, result);
-        return result;
+  for (const neighbor of graph[start] || []) {
+    if (!visited.has(neighbor)) {
+      order.push(...dfs(graph, neighbor, visited));
+    }
+  }
+  return order;
+}
+
+// Iterative version
+function dfsIterative(graph, start) {
+  const visited = new Set();
+  const stack = [start];
+  const order = [];
+
+  while (stack.length > 0) {
+    const node = stack.pop();
+    if (!visited.has(node)) {
+      visited.add(node);
+      order.push(node);
+      for (const neighbor of (graph[node] || []).reverse()) {
+        if (!visited.has(neighbor)) {
+          stack.push(neighbor);
+        }
+      }
+    }
+  }
+  return order;
+}`,
+      python: `def dfs(graph, start, visited=None):
+    if visited is None:
+        visited = set()
+    visited.add(start)
+    order = [start]
+
+    for neighbor in graph.get(start, []):
+        if neighbor not in visited:
+            order.extend(dfs(graph, neighbor, visited))
+    return order
+
+# Iterative version
+def dfs_iterative(graph, start):
+    visited = set()
+    stack = [start]
+    order = []
+
+    while stack:
+        node = stack.pop()
+        if node not in visited:
+            visited.add(node)
+            order.append(node)
+            for neighbor in reversed(graph.get(node, [])):
+                if neighbor not in visited:
+                    stack.append(neighbor)
+    return order`,
+      cpp: `#include <vector>
+#include <stack>
+#include <unordered_set>
+
+void dfsRecursive(const std::vector<std::vector<int>>& adj, int node,
+                  std::unordered_set<int>& visited, std::vector<int>& order) {
+    visited.insert(node);
+    order.push_back(node);
+
+    for (int neighbor : adj[node]) {
+        if (visited.find(neighbor) == visited.end()) {
+            dfsRecursive(adj, neighbor, visited, order);
+        }
+    }
+}
+
+std::vector<int> dfs(const std::vector<std::vector<int>>& adj, int start) {
+    std::unordered_set<int> visited;
+    std::vector<int> order;
+    dfsRecursive(adj, start, visited, order);
+    return order;
+}`,
+      java: `import java.util.*;
+
+public class DFS {
+    public static List<Integer> dfs(Map<Integer, List<Integer>> adj, int start) {
+        Set<Integer> visited = new HashSet<>();
+        List<Integer> order = new ArrayList<>();
+        dfsRecursive(adj, start, visited, order);
+        return order;
+    }
+
+    private static void dfsRecursive(Map<Integer, List<Integer>> adj, int node,
+                                     Set<Integer> visited, List<Integer> order) {
+        visited.add(node);
+        order.add(node);
+
+        for (int neighbor : adj.getOrDefault(node, Collections.emptyList())) {
+            if (!visited.contains(neighbor)) {
+                dfsRecursive(adj, neighbor, visited, order);
+            }
+        }
     }
 }`
     }
@@ -674,8 +891,8 @@ public class FibonacciDP {
     difficulty: 'Medium',
     featured: false,
     rating: 4.9,
-    summary: 'An elegant linear-time algorithm to find the contiguous subarray with the largest sum within an array of numbers.',
-    description: "Kadane's algorithm scans through the array values, computing at each position the maximum subarray ending at that position. By deciding whether to extend the existing contiguous sum or restart at the current element, it achieves optimal O(n) performance in a single pass.",
+    summary: 'A dynamic programming technique to find the maximum sum of a contiguous subarray in O(n) time.',
+    description: "Kadane's Algorithm solves the maximum subarray problem by iterating through the array once, at each position deciding whether to extend the current subarray or start a new one. It maintains the best sum seen so far and updates it when a better sum is found. This elegant single-pass solution is a classic example of optimal substructure in dynamic programming.",
     timeComplexity: {
       best: 'O(n)',
       average: 'O(n)',
@@ -684,47 +901,220 @@ public class FibonacciDP {
     spaceComplexity: 'O(1)',
     visualizerType: 'dp',
     defaultArray: [-2, 1, -3, 4, -1, 2, 1, -5, 4],
-    tags: ['Subarray', 'Optimization', 'Greedy', 'Sliding Window'],
-    bannerUrl: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=1600&q=80',
-    thumbnailUrl: 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=600&q=80',
+    tags: ['Dynamic Programming', 'Greedy', 'Subarray', 'Optimal'],
+    bannerUrl: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=1600&q=80',
+    thumbnailUrl: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=600&q=80',
     code: {
-      javascript: `function maxSubArray(nums) {
-  let currentSum = nums[0];
-  let maxSum = nums[0];
+      javascript: `function kadane(arr) {
+  let maxSoFar = arr[0];
+  let maxEndingHere = arr[0];
 
-  for (let i = 1; i < nums.length; i++) {
-    currentSum = Math.max(nums[i], currentSum + nums[i]);
-    maxSum = Math.max(maxSum, currentSum);
+  for (let i = 1; i < arr.length; i++) {
+    maxEndingHere = Math.max(arr[i], maxEndingHere + arr[i]);
+    maxSoFar = Math.max(maxSoFar, maxEndingHere);
   }
-  return maxSum;
+  return maxSoFar;
+}
+
+// With indices
+function kadaneWithIndices(arr) {
+  let maxSoFar = arr[0];
+  let maxEndingHere = arr[0];
+  let start = 0, end = 0, tempStart = 0;
+
+  for (let i = 1; i < arr.length; i++) {
+    if (arr[i] > maxEndingHere + arr[i]) {
+      maxEndingHere = arr[i];
+      tempStart = i;
+    } else {
+      maxEndingHere = maxEndingHere + arr[i];
+    }
+
+    if (maxEndingHere > maxSoFar) {
+      maxSoFar = maxEndingHere;
+      start = tempStart;
+      end = i;
+    }
+  }
+  return { sum: maxSoFar, start, end };
 }`,
-      python: `def max_sub_array(nums):
-    current_sum = max_sum = nums[0]
-    for x in nums[1:]:
-        current_sum = max(x, current_sum + x)
-        max_sum = max(max_sum, current_sum)
-    return max_sum`,
+      python: `def kadane(arr):
+    max_so_far = arr[0]
+    max_ending_here = arr[0]
+
+    for i in range(1, len(arr)):
+        max_ending_here = max(arr[i], max_ending_here + arr[i])
+        max_so_far = max(max_so_far, max_ending_here)
+
+    return max_so_far
+
+# With indices
+def kadane_with_indices(arr):
+    max_so_far = arr[0]
+    max_ending_here = arr[0]
+    start = end = temp_start = 0
+
+    for i in range(1, len(arr)):
+        if arr[i] > max_ending_here + arr[i]:
+            max_ending_here = arr[i]
+            temp_start = i
+        else:
+            max_ending_here += arr[i]
+
+        if max_ending_here > max_so_far:
+            max_so_far = max_ending_here
+            start = temp_start
+            end = i
+
+    return {'sum': max_so_far, 'start': start, 'end': end}`,
       cpp: `#include <vector>
 #include <algorithm>
 
-int maxSubArray(const std::vector<int>& nums) {
-    int currentSum = nums[0];
-    int maxSum = nums[0];
-    for (size_t i = 1; i < nums.size(); i++) {
-        currentSum = std::max(nums[i], currentSum + nums[i]);
-        maxSum = std::max(maxSum, currentSum);
+int kadane(const std::vector<int>& arr) {
+    int maxSoFar = arr[0];
+    int maxEndingHere = arr[0];
+
+    for (int i = 1; i < arr.size(); i++) {
+        maxEndingHere = std::max(arr[i], maxEndingHere + arr[i]);
+        maxSoFar = std::max(maxSoFar, maxEndingHere);
     }
-    return maxSum;
+    return maxSoFar;
 }`,
       java: `public class Kadane {
-    public static int maxSubArray(int[] nums) {
-        int currentSum = nums[0];
-        int maxSum = nums[0];
-        for (int i = 1; i < nums.length; i++) {
-            currentSum = Math.max(nums[i], currentSum + nums[i]);
-            maxSum = Math.max(maxSum, currentSum);
+    public static int kadane(int[] arr) {
+        int maxSoFar = arr[0];
+        int maxEndingHere = arr[0];
+
+        for (int i = 1; i < arr.length; i++) {
+            maxEndingHere = Math.max(arr[i], maxEndingHere + arr[i]);
+            maxSoFar = Math.max(maxSoFar, maxEndingHere);
         }
-        return maxSum;
+        return maxSoFar;
+    }
+}`
+    }
+  },
+  {
+    title: 'Fibonacci (Dynamic Programming)',
+    slug: 'fibonacci-dp',
+    category: 'Dynamic Programming',
+    difficulty: 'Easy',
+    featured: false,
+    rating: 4.7,
+    summary: 'Computing Fibonacci numbers efficiently using dynamic programming with memoization or tabulation to avoid redundant calculations.',
+    description: 'The Fibonacci sequence is a classic demonstration of dynamic programming. While the naive recursive solution has exponential time complexity due to overlapping subproblems, memoization (top-down) or tabulation (bottom-up) reduces it to linear time by storing previously computed values. This optimization showcases the power of dynamic programming.',
+    timeComplexity: {
+      best: 'O(n)',
+      average: 'O(n)',
+      worst: 'O(n)',
+    },
+    spaceComplexity: 'O(n)',
+    visualizerType: 'dp',
+    defaultArray: [0, 1, 1, 2, 3, 5, 8, 13, 21, 34],
+    tags: ['Dynamic Programming', 'Memoization', 'Recursion', 'Optimization'],
+    bannerUrl: 'https://images.unsplash.com/photo-1509228468518-180dd4864904?auto=format&fit=crop&w=1600&q=80',
+    thumbnailUrl: 'https://images.unsplash.com/photo-1542831371-29b0f74f9713?auto=format&fit=crop&w=600&q=80',
+    code: {
+      javascript: `// Memoization (Top-Down)
+function fibMemo(n, memo = {}) {
+  if (n in memo) return memo[n];
+  if (n <= 1) return n;
+  memo[n] = fibMemo(n - 1, memo) + fibMemo(n - 2, memo);
+  return memo[n];
+}
+
+// Tabulation (Bottom-Up)
+function fibTab(n) {
+  if (n <= 1) return n;
+  const dp = [0, 1];
+  for (let i = 2; i <= n; i++) {
+    dp[i] = dp[i - 1] + dp[i - 2];
+  }
+  return dp[n];
+}
+
+// Space-optimized
+function fibOptimized(n) {
+  if (n <= 1) return n;
+  let prev = 0, curr = 1;
+  for (let i = 2; i <= n; i++) {
+    [prev, curr] = [curr, prev + curr];
+  }
+  return curr;
+}`,
+      python: `# Memoization (Top-Down)
+def fib_memo(n, memo=None):
+    if memo is None:
+        memo = {}
+    if n in memo:
+        return memo[n]
+    if n <= 1:
+        return n
+    memo[n] = fib_memo(n - 1, memo) + fib_memo(n - 2, memo)
+    return memo[n]
+
+# Tabulation (Bottom-Up)
+def fib_tab(n):
+    if n <= 1:
+        return n
+    dp = [0, 1]
+    for i in range(2, n + 1):
+        dp.append(dp[i - 1] + dp[i - 2])
+    return dp[n]
+
+# Space-optimized
+def fib_optimized(n):
+    if n <= 1:
+        return n
+    prev, curr = 0, 1
+    for _ in range(2, n + 1):
+        prev, curr = curr, prev + curr
+    return curr`,
+      cpp: `#include <vector>
+#include <unordered_map>
+
+// Memoization
+int fibMemo(int n, std::unordered_map<int, int>& memo) {
+    if (memo.find(n) != memo.end()) return memo[n];
+    if (n <= 1) return n;
+    memo[n] = fibMemo(n - 1, memo) + fibMemo(n - 2, memo);
+    return memo[n];
+}
+
+// Tabulation
+int fibTab(int n) {
+    if (n <= 1) return n;
+    std::vector<int> dp(n + 1);
+    dp[0] = 0;
+    dp[1] = 1;
+    for (int i = 2; i <= n; i++) {
+        dp[i] = dp[i - 1] + dp[i - 2];
+    }
+    return dp[n];
+}`,
+      java: `import java.util.HashMap;
+import java.util.Map;
+
+public class Fibonacci {
+    // Memoization
+    public static int fibMemo(int n, Map<Integer, Integer> memo) {
+        if (memo.containsKey(n)) return memo.get(n);
+        if (n <= 1) return n;
+        int result = fibMemo(n - 1, memo) + fibMemo(n - 2, memo);
+        memo.put(n, result);
+        return result;
+    }
+
+    // Tabulation
+    public static int fibTab(int n) {
+        if (n <= 1) return n;
+        int[] dp = new int[n + 1];
+        dp[0] = 0;
+        dp[1] = 1;
+        for (int i = 2; i <= n; i++) {
+            dp[i] = dp[i - 1] + dp[i - 2];
+        }
+        return dp[n];
     }
 }`
     }

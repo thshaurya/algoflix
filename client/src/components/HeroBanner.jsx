@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { FaPlay, FaInfoCircle, FaPlus, FaCheck, FaStar } from 'react-icons/fa';
 import useFavorites from '../hooks/useFavorites';
+import { getDifficultyClass } from '../utils/helpers';
 
 export const HeroBanner = ({ algorithm, onOpenModal }) => {
   const navigate = useNavigate();
@@ -11,17 +12,6 @@ export const HeroBanner = ({ algorithm, onOpenModal }) => {
   if (!algorithm) return null;
 
   const isSaved = isFavorite(algorithm.slug);
-
-  const getDifficultyClass = (diff) => {
-    switch (diff?.toLowerCase()) {
-      case 'easy':
-        return 'badge-easy';
-      case 'hard':
-        return 'badge-hard';
-      default:
-        return 'badge-medium';
-    }
-  };
 
   return (
     <div
@@ -32,31 +22,46 @@ export const HeroBanner = ({ algorithm, onOpenModal }) => {
 
       <motion.div
         className="hero-content"
-        initial={{ opacity: 0, y: 30 }}
+        initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, ease: 'easeOut' }}
+        transition={{ duration: 0.9, ease: [0.25, 1, 0.5, 1] }}
       >
         <div className="hero-badge-row">
-          <span className="badge" style={{ background: '#e50914', color: '#fff' }}>
+          <span className="badge" style={{ background: '#e50914', color: '#fff', fontSize: '0.68rem', letterSpacing: '1.5px' }}>
             ALGOFLIX ORIGINAL
           </span>
           <span className={`badge ${getDifficultyClass(algorithm.difficulty)}`}>
             {algorithm.difficulty}
           </span>
-          <span className="badge" style={{ background: 'rgba(255,255,255,0.15)', color: '#fff' }}>
+          <span className="badge" style={{ background: 'rgba(255,255,255,0.12)', color: '#fff' }}>
             {algorithm.category}
           </span>
-          <span style={{ display: 'flex', alignItems: 'center', gap: '4px', fontSize: '0.85rem', color: '#ffb800' }}>
+          <span style={{ display: 'flex', alignItems: 'center', gap: '4px', fontSize: '0.82rem', color: '#f7b731' }}>
             <FaStar /> {algorithm.rating || 4.9}
           </span>
         </div>
 
-        <h1 className="hero-title">{algorithm.title}</h1>
-        <p className="hero-summary">{algorithm.summary}</p>
+        <motion.h1
+          className="hero-title"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.2, ease: [0.25, 1, 0.5, 1] }}
+        >
+          {algorithm.title}
+        </motion.h1>
+
+        <motion.p
+          className="hero-summary"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+        >
+          {algorithm.summary}
+        </motion.p>
 
         <div className="hero-complexity">
           <div className="hero-complexity-item">
-            <span>Average Time:</span>
+            <span>Average:</span>
             <strong>{algorithm.timeComplexity?.average || 'O(n log n)'}</strong>
           </div>
           <div className="hero-complexity-item">
@@ -65,19 +70,24 @@ export const HeroBanner = ({ algorithm, onOpenModal }) => {
           </div>
         </div>
 
-        <div className="hero-actions">
+        <motion.div
+          className="hero-actions"
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.5 }}
+        >
           <button
             className="btn-primary"
             onClick={() => navigate(`/algorithms/${algorithm.slug}`)}
           >
-            <FaPlay /> Visualize
+            <FaPlay /> Visualize Now
           </button>
 
           <button
             className="btn-secondary"
             onClick={() => onOpenModal && onOpenModal(algorithm)}
           >
-            <FaInfoCircle /> Details
+            <FaInfoCircle /> More Info
           </button>
 
           <button
@@ -88,7 +98,7 @@ export const HeroBanner = ({ algorithm, onOpenModal }) => {
             {isSaved ? <FaCheck style={{ color: '#46d369' }} /> : <FaPlus />}
             {isSaved ? 'In My List' : 'My List'}
           </button>
-        </div>
+        </motion.div>
       </motion.div>
     </div>
   );

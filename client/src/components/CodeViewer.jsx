@@ -1,12 +1,24 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FaCopy, FaCheck } from 'react-icons/fa';
+import hljs from 'highlight.js/lib/core';
+import javascript from 'highlight.js/lib/languages/javascript';
+import python from 'highlight.js/lib/languages/python';
+import cpp from 'highlight.js/lib/languages/cpp';
+import java from 'highlight.js/lib/languages/java';
+import 'highlight.js/styles/atom-one-dark.css';
+
+// Register specific languages for smaller bundle size
+hljs.registerLanguage('javascript', javascript);
+hljs.registerLanguage('python', python);
+hljs.registerLanguage('cpp', cpp);
+hljs.registerLanguage('java', java);
 
 export const CodeViewer = ({ code = {} }) => {
   const languages = [
-    { key: 'javascript', label: 'JavaScript' },
-    { key: 'python', label: 'Python' },
-    { key: 'cpp', label: 'C++' },
-    { key: 'java', label: 'Java' },
+    { key: 'javascript', label: 'JavaScript', hljsLang: 'javascript' },
+    { key: 'python', label: 'Python', hljsLang: 'python' },
+    { key: 'cpp', label: 'C++', hljsLang: 'cpp' },
+    { key: 'java', label: 'Java', hljsLang: 'java' },
   ];
 
   const availableLanguages = languages.filter((lang) => !!code[lang.key]);
@@ -21,6 +33,18 @@ export const CodeViewer = ({ code = {} }) => {
     navigator.clipboard.writeText(activeCode);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
+  };
+
+  const getHighlightedCode = () => {
+    try {
+      const currentLang = languages.find((l) => l.key === activeLang);
+      if (currentLang) {
+        return hljs.highlight(activeCode, { language: currentLang.hljsLang }).value;
+      }
+      return hljs.highlightAuto(activeCode).value;
+    } catch {
+      return activeCode;
+    }
   };
 
   return (
@@ -45,7 +69,9 @@ export const CodeViewer = ({ code = {} }) => {
       </div>
 
       <pre className="code-content">
-        <code>{activeCode}</code>
+        <code
+          dangerouslySetInnerHTML={{ __html: getHighlightedCode() }}
+        />
       </pre>
     </div>
   );

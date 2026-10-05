@@ -1,122 +1,138 @@
-# AlgoFlix 🍿⚡
-> The Netflix of Algorithms — Learn, Explore, and Interactively Visualize Data Structures & Algorithms.
+# 🍿 AlgoFlix — The Netflix of Algorithms
 
-![AlgoFlix Preview](https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=1200&q=80)
+<p align="center">
+  <strong>Master Data Structures & Algorithms through interactive visualization. Stream, learn, and conquer coding interviews the Netflix way.</strong>
+</p>
 
-AlgoFlix is a modern, full-stack educational web application designed like Netflix for discovering, learning, and visualizing Data Structures and Algorithms. It features cinematic dark UI, animated carousels, step-by-step interactive visualizers, multi-language code viewers, live search, and a personal "My List" bookmarking system.
-
----
-
-## 🛠 Tech Stack
-
-### Frontend (`/client`)
-- **Library**: React 18
-- **Build Tool**: Vite
-- **Routing**: React Router DOM v6
-- **Animations**: Framer Motion
-- **Icons**: React Icons (Lucide / Feather / Ionicons)
-- **HTTP Client**: Axios
-- **Styling**: Modern CSS3 (CSS Variables, Flexbox, CSS Grid, Glassmorphism)
-
-### Backend (`/server`)
-- **Runtime**: Node.js
-- **Framework**: Express.js
-- **Database**: MongoDB
-- **ODM**: Mongoose
-- **Configuration**: Dotenv
-- **Cross-Origin**: CORS
-- **Dev Tool**: Nodemon
+<p align="center">
+  <img src="https://img.shields.io/badge/React-18.3-61dafb?style=for-the-badge&logo=react" alt="React" />
+  <img src="https://img.shields.io/badge/Node.js-Express-green?style=for-the-badge&logo=node.js" alt="Node.js" />
+  <img src="https://img.shields.io/badge/MongoDB-Mongoose-47A248?style=for-the-badge&logo=mongodb" alt="MongoDB" />
+  <img src="https://img.shields.io/badge/Vite-5.2-646CFF?style=for-the-badge&logo=vite" alt="Vite" />
+</p>
 
 ---
 
-## 📁 Project Architecture
+## 🚀 Overview
 
-```text
+**AlgoFlix** is a full-stack web application that gamifies and streamlines the process of learning Data Structures and Algorithms by wrapping educational content inside a cinematic, Netflix-inspired dark UI. 
+
+Instead of reading dry text, users explore algorithm "titles" categorized into rows (Trending, Sorting, Searching, Graphs, Dynamic Programming), watch step-by-step frame visualizations with custom speed control, compare multi-language implementations with syntax highlighting, and save algorithms to their personal watchlist.
+
+---
+
+## ✨ Features
+
+- **🎬 Netflix-Themed Cinematic UI**: Hero billboard with staggered animations, horizontal scrolling rows, movie-style detail modals, and backdrop blur.
+- **⚡ Interactive Visualizer Studio**: Step-by-step animations with play/pause/step controls, speed sliders, and real-time execution tracking.
+- **📊 4 Specialized Visualizer Engines**:
+  - **Sorting Visualizer**: Bar charts tracking comparing, swapping, pivot, and partitioned states.
+  - **Searching Visualizer**: Array cells with moving Low/Mid/High pointer indicators.
+  - **Graph Visualizer**: Interactive responsive SVG graph showing BFS traversal and Dijkstra's shortest paths with distance tables.
+  - **DP Visualizer**: Dynamic programming tables and subarray state visualization.
+- **💻 Multi-Language Code Viewer**: Tabbed code implementations in **JavaScript**, **Python**, **C++**, and **Java** with full syntax highlighting and one-click copy.
+- **🔍 Full-Text Search & Multi-Filter**: Debounced search by title, tag, or description, with instant category and difficulty filters.
+- **⭐ Persistent Watchlist ("My List")**: Save algorithms to your personal watchlist backed by `localStorage`.
+- **🛡️ In-Memory Fallback Engine**: Works out-of-the-box even without a running MongoDB instance by serving seeded algorithms directly in memory.
+- **📱 Fully Responsive**: Custom CSS design system optimized for desktops, tablets, and mobile screens.
+
+---
+
+## 🛠️ Tech Stack
+
+### Frontend
+- **React 18.3** — Functional components with hooks
+- **Vite 5.2** — Fast HMR build tool
+- **React Router DOM v6** — Client-side routing
+- **Framer Motion** — Fluid layout transitions and modal animations
+- **Highlight.js** — Multi-language syntax highlighting
+- **React Icons** — Feather and FontAwesome icons
+- **Pure CSS** — 1350+ lines of custom CSS variables and responsive design (no Tailwind/Bootstrap dependency)
+
+### Backend
+- **Node.js & Express 4.19** — RESTful API architecture
+- **MongoDB & Mongoose 8.4** — Document database with text indexing
+- **CORS & Dotenv** — Middleware for security and configuration
+
+---
+
+## 📂 Project Structure
+
+```
 AlgoFlix/
-├── client/
+├── client/                     # React Frontend (Vite)
 │   ├── src/
-│   │   ├── components/
-│   │   │   ├── Navbar.jsx              # Netflix-style header with scroll effect & search
-│   │   │   ├── Footer.jsx              # Branded streaming footer
-│   │   │   ├── HeroBanner.jsx          # Cinematic featured algorithm billboard
-│   │   │   ├── AlgorithmCard.jsx       # Hover-expand card with badges and quick actions
-│   │   │   ├── AlgorithmRow.jsx        # Horizontal smooth carousel with scroll arrows
-│   │   │   ├── AlgorithmModal.jsx      # Detail preview modal popup
-│   │   │   ├── Visualizer.jsx          # Interactive animated bar sorting/searching visualizer
-│   │   │   └── CodeViewer.jsx          # Tabbed code viewer (JS, Python, C++, Java) with copy button
-│   │   ├── pages/
-│   │   │   ├── Home.jsx                # Netflix browse page with categorized rows
-│   │   │   ├── AlgorithmDetail.jsx     # Deep dive theory, complexity breakdown, and code
-│   │   │   ├── VisualizerStudio.jsx    # Dedicated interactive sandbox with custom array inputs
-│   │   │   ├── SearchPage.jsx          # Live search and category/difficulty filtering
-│   │   │   └── MyListPage.jsx          # Bookmarked algorithms collection
-│   │   ├── services/
-│   │   │   ├── api.js                  # Axios instance with base URL & timeout
-│   │   │   └── algorithmService.js     # API methods for algorithms and categories
-│   │   ├── hooks/
-│   │   │   ├── useFavorites.js         # LocalStorage-backed bookmarking hook
-│   │   │   └── useAlgorithmVisualizer.js # Visualizer playback engine (play, pause, step, speed)
-│   │   ├── styles/
-│   │   │   └── index.css               # Global styles, dark theme, typography, keyframes
-│   │   ├── App.jsx                     # Root router and global layout
-│   │   └── main.jsx                    # React 18 DOM mount
-│   ├── index.html                      # HTML5 template with Netflix dark styling
-│   ├── vite.config.js                  # Vite configuration with API proxy
-│   └── package.json                    # Frontend dependencies
-│
-├── server/
-│   ├── config/
-│   │   └── db.js                       # MongoDB connection with graceful in-memory fallback
-│   ├── controllers/
-│   │   └── algorithmController.js      # REST API handlers
-│   ├── middleware/
-│   │   └── errorHandler.js             # 404 & centralized error handlers
-│   ├── models/
-│   │   └── Algorithm.js                # Mongoose schema for algorithms
-│   ├── routes/
-│   │   └── algorithmRoutes.js          # REST endpoints
-│   ├── utils/
-│   │   └── apiResponse.js              # Standardized API response formatters
-│   ├── seed/
-│   │   ├── seedData.js                 # Rich DSA dataset (Sorting, Graphs, DP, Trees)
-│   │   └── seeder.js                   # Standalone database population script
-│   ├── .env                            # Backend environment configuration
-│   ├── server.js                       # Express app bootstrap & middleware
-│   └── package.json                    # Backend dependencies & scripts
-│
-├── .gitignore
+│   │   ├── components/         # Reusable UI components
+│   │   │   ├── AlgorithmCard.jsx
+│   │   │   ├── AlgorithmModal.jsx
+│   │   │   ├── AlgorithmRow.jsx
+│   │   │   ├── CodeViewer.jsx
+│   │   │   ├── ErrorBoundary.jsx
+│   │   │   ├── Footer.jsx
+│   │   │   ├── HeroBanner.jsx
+│   │   │   ├── Navbar.jsx
+│   │   │   └── Visualizer.jsx
+│   │   ├── hooks/              # Custom React hooks
+│   │   │   ├── useAlgorithmVisualizer.js
+│   │   │   └── useFavorites.js
+│   │   ├── pages/              # Route pages
+│   │   │   ├── AlgorithmDetail.jsx
+│   │   │   ├── Home.jsx
+│   │   │   ├── MyListPage.jsx
+│   │   │   ├── SearchPage.jsx
+│   │   │   └── VisualizerStudio.jsx
+│   │   ├── services/           # Axios API services
+│   │   ├── styles/             # Custom Netflix-themed CSS
+│   │   └── utils/              # Helper utilities
+│   └── vite.config.js
+├── server/                     # Express Backend
+│   ├── config/                 # DB connection & fallback logic
+│   ├── controllers/            # Algorithm controllers
+│   ├── middleware/             # Error handling & validators
+│   ├── models/                 # Mongoose Schema
+│   ├── routes/                 # Express API routes
+│   ├── seed/                   # Seed data & CLI seeder
+│   └── server.js               # Entry point
+├── launch.bat                  # One-click Windows starter
+├── package.json                # Monorepo root scripts
 └── README.md
 ```
 
 ---
 
-## 🚀 Quick Start (Launch with One Command)
+## 🚀 Getting Started
 
-To run the entire full-stack application (both Backend API and Frontend UI simultaneously):
+### Prerequisites
+- **Node.js** (v18 or higher recommended)
+- **npm** or **yarn**
+- *(Optional)* **MongoDB** running locally on `mongodb://127.0.0.1:27017/algoflix` (the app will run in fallback mode if MongoDB is not present).
 
-```bash
-# In the project root (d:/Algoflix)
-npm start
-```
-*(Or on Windows, simply double-click **`launch.bat`**)*
+### Installation
 
-- **Frontend Client**: `http://localhost:5173`
-- **Backend API**: `http://localhost:5000`
-- **Database**: Automatically connected to MongoDB (with built-in fallback mode)
-The server will start on `http://localhost:5000`.
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/your-username/algoflix.git
+   cd algoflix
+   ```
 
-### 3. Frontend Setup
-```bash
-# In another terminal, navigate to the client folder
-cd client
+2. **Install all dependencies** (root, client, and server):
+   ```bash
+   npm run install:all
+   ```
 
-# Install dependencies
-npm install
+3. **(Optional) Seed MongoDB**:
+   ```bash
+   npm run seed
+   ```
 
-# Start Vite dev server
-npm run dev
-```
-The client will start on `http://localhost:5173`.
+4. **Start the development environment**:
+   ```bash
+   npm run dev
+   ```
+
+5. Open your browser and navigate to:
+   - **Frontend**: `http://localhost:5173`
+   - **Backend API**: `http://localhost:5000/api/algorithms`
 
 ---
 
@@ -124,19 +140,21 @@ The client will start on `http://localhost:5173`.
 
 | Method | Endpoint | Description |
 |---|---|---|
-| `GET` | `/api/algorithms` | Fetch all algorithms (supports `?category=`, `?difficulty=`, `?search=`) |
-| `GET` | `/api/algorithms/featured` | Fetch spotlight hero algorithm |
-| `GET` | `/api/algorithms/categories` | Fetch all available algorithm categories |
-| `GET` | `/api/algorithms/:slug` | Fetch a single algorithm by slug |
-| `POST` | `/api/algorithms` | Create a new algorithm |
+| `GET` | `/api/algorithms` | Get all algorithms (supports `?category=`, `?difficulty=`, `?search=`, `?featured=`) |
+| `GET` | `/api/algorithms/featured` | Get the hero featured algorithm |
+| `GET` | `/api/algorithms/categories` | Get category names with count metadata |
+| `GET` | `/api/algorithms/:slug` | Get full algorithm details by slug |
+| `POST` | `/api/algorithms` | Create a new algorithm entry |
+| `GET` | `/api/health` | Backend health check |
 
 ---
 
-## ✨ Features
-- **Cinematic Dark UI**: Netflix-inspired theme with red accents (`#E50914`), deep blacks, and smooth hover scaling.
-- **Interactive Visualizer**: Play, pause, step-forward, step-backward, adjust speed, and generate random arrays.
-- **Multi-Language Code Studio**: View and copy clean implementations in JavaScript, Python, C++, and Java.
-- **Complexity Analysis**: Big-O notation cards for best, average, and worst-case time and space complexities.
-- **Dynamic Search & Filters**: Filter by category (Sorting, Searching, Graphs, DP) or difficulty (Easy, Medium, Hard).
-- **My List / Bookmarking**: Persistent saved algorithm collection.
-- **Zero Configuration Fallback**: If MongoDB is not active, the backend gracefully serves seed algorithms in-memory so you can start right away!
+## 🤝 Contributing
+
+Contributions, issues, and feature requests are welcome! Feel free to check the [issues page](https://github.com/your-username/algoflix/issues).
+
+---
+
+## 📄 License
+
+This project is licensed under the MIT License — see the [LICENSE](LICENSE) file for details.

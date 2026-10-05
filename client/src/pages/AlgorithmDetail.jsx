@@ -5,6 +5,7 @@ import algorithmService from '../services/algorithmService';
 import Visualizer from '../components/Visualizer';
 import CodeViewer from '../components/CodeViewer';
 import useFavorites from '../hooks/useFavorites';
+import { getDifficultyClass } from '../utils/helpers';
 
 export const AlgorithmDetail = () => {
   const { slug } = useParams();
@@ -53,17 +54,6 @@ export const AlgorithmDetail = () => {
   }
 
   const isSaved = isFavorite(algorithm.slug);
-
-  const getDifficultyClass = (diff) => {
-    switch (diff?.toLowerCase()) {
-      case 'easy':
-        return 'badge-easy';
-      case 'hard':
-        return 'badge-hard';
-      default:
-        return 'badge-medium';
-    }
-  };
 
   return (
     <div className="container" style={{ paddingTop: 'calc(var(--nav-height) + 1.5rem)', paddingBottom: '4rem' }}>

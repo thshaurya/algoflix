@@ -1,8 +1,8 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { FaPlay, FaPlus, FaCheck, FaInfo } from 'react-icons/fa';
+import { FaPlay, FaPlus, FaCheck, FaChevronDown } from 'react-icons/fa';
 import useFavorites from '../hooks/useFavorites';
+import { getDifficultyClass } from '../utils/helpers';
 
 export const AlgorithmCard = ({ algorithm, onOpenModal }) => {
   const navigate = useNavigate();
@@ -12,22 +12,9 @@ export const AlgorithmCard = ({ algorithm, onOpenModal }) => {
 
   const isSaved = isFavorite(algorithm.slug);
 
-  const getDifficultyClass = (diff) => {
-    switch (diff?.toLowerCase()) {
-      case 'easy':
-        return 'badge-easy';
-      case 'hard':
-        return 'badge-hard';
-      default:
-        return 'badge-medium';
-    }
-  };
-
   return (
-    <motion.div
+    <div
       className="algo-card"
-      whileHover={{ scale: 1.05, y: -4 }}
-      transition={{ duration: 0.25 }}
       onClick={() => onOpenModal && onOpenModal(algorithm)}
     >
       <img
@@ -46,7 +33,7 @@ export const AlgorithmCard = ({ algorithm, onOpenModal }) => {
 
           <div className="card-actions" onClick={(e) => e.stopPropagation()}>
             <button
-              className="card-btn"
+              className="card-btn play-btn"
               title="Visualize"
               onClick={() => navigate(`/algorithms/${algorithm.slug}`)}
             >
@@ -63,15 +50,15 @@ export const AlgorithmCard = ({ algorithm, onOpenModal }) => {
 
             <button
               className="card-btn"
-              title="Details"
+              title="More Info"
               onClick={() => onOpenModal && onOpenModal(algorithm)}
             >
-              <FaInfo size={10} />
+              <FaChevronDown size={10} />
             </button>
           </div>
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 };
 
